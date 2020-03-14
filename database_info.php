@@ -45,14 +45,13 @@ $indexTitle = " <tr>
 
 const HOST = "118.126.97.71";
 const DBNAME = "daohang";
-const USER = "root";
+const USER = "admin";
 const PASSWORD = "";
 
 
 
-$dns = "mysql:host="+HOST+";dbname=" + DBNAME;
 
-$pdo = new PDO($dns, USER, PASSWORD);
+$pdo = new PDO("mysql:host=118.126.97.71;dbname=daohang", USER, PASSWORD);
 $pdo->query('set names utf8');
 $pdo->query('use information_schema');
 
