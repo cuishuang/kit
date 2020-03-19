@@ -1,2 +1,2 @@
 # kit
-some useful tool for developer
+some useful tools for developer
