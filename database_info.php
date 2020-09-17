@@ -49,21 +49,19 @@ const USER = "admin";
 const PASSWORD = "";
 
 
-
-
-$pdo = new PDO("mysql:host=118.126.97.71;dbname=daohang", USER, PASSWORD);
+$pdo = new PDO("mysql:host=118.126.97.71;dbname=" . DBNAME, USER, PASSWORD);
 $pdo->query('set names utf8');
 $pdo->query('use information_schema');
 
 
 $allTablesSql = 'SELECT table_name name,TABLE_COMMENT value FROM INFORMATION_SCHEMA.TABLES WHERE table_type=\'base table\' 
-and table_schema = \'daohang\' order by table_name asc';
+and table_schema = ' . "'" . DBNAME . "'" . ' order by table_name asc';
 $query = $pdo->query($allTablesSql);
 
 $rs = $query->fetchAll();
 
 
-$allTablesRecordSql = 'select table_name,table_rows from tables where TABLE_SCHEMA = \'daohang\' order by table_rows desc; ';
+$allTablesRecordSql = "select table_name,table_rows from tables where TABLE_SCHEMA = " . "'" . DBNAME . "'" . " order by table_rows desc; ";
 $query2 = $pdo->query($allTablesRecordSql);
 $rs2 = $query2->fetchAll();
 
@@ -80,10 +78,9 @@ foreach ($rs2 as $tableInfo) {
 
 
 //获取表名和索引的对应关系
-$allTablesIndexSql = ' SELECT * FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = \'daohang\'; ';
+$allTablesIndexSql = "SELECT * FROM INFORMATION_SCHEMA.STATISTICS WHERE TABLE_SCHEMA = " . "'" . DBNAME . "'" . ";";
 $query3 = $pdo->query($allTablesIndexSql);
 $rs3 = $query3->fetchAll();
-
 
 
 //获取表名和索引的对应关系,三维数组,键名是表名,键值是个二维数组,里面是这张表所有的索引
@@ -100,7 +97,6 @@ foreach ($rs3 as $item) {
     array_push($indexArr[$tNameWithIndex], $item);
 
 }
-
 
 
 $pdo->query('use daohang;');
